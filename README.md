@@ -5,7 +5,9 @@ make SCHEDULER=DEFAULT/FCFS/PBS/MLFQ && make qemu
 ```
 
 To measure time for different scheduling algos Run:
+```bash
 time benchmark 
+```
 
 Refer Assignment.pdf -> major code changes made are shown in README (tip: search 'insert' in all files to see my inserts)
 ### WAITX SYSCALL
@@ -533,16 +535,17 @@ A process could potentially take advantage of this scheduling policy by giving u
 so that it is not demoted to a lower queue and gets a fresh time slice.
 
 Time comparisons:
-FCFS - Status is 4, Wait time is 3615, Running time is 4
-PBS - Status is 15, Wait time is 2050, Running time is 5
-DEFAULT - Status is 4, Wait time is 2064, Running time is 4
+FCFS - Status is 4, Wait time is 3615, Running time is 4\
+PBS - Status is 15, Wait time is 2050, Running time is 5\
+DEFAULT - Status is 4, Wait time is 2064, Running time is 4\
 MLFQ - Status is 4, Wait time is 2088, Running time is 7
 
 In trap.c : 
 FCFS is non-preemptive. For other scheduling algos yield.
+```c
 #ifndef FCFS
 		yield();
 #endif
-
+```
 
 update_running_time -> function in proc.c called in trap.c -> updates running time if process is in RUNNING state
