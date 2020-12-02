@@ -17,6 +17,7 @@ The syscall waitx simply obtains the required values from the struct proc. Rest 
 
 Similar to waitx, we maintain the required info in the struct proc and obtain the info from process table whenever this syscall is called.
 
+```c
 //my insert
 //psinfo syscall
 int psinfo()
@@ -59,11 +60,13 @@ int psinfo()
   release(&ptable.lock);
   return 1;
 }
+```
 
 SET_PRIORITY SYSCALL - ADDED IN PROC.C 
 
 If priority is reduced then yield
 
+```c
 //my insert
 //set_priority syscall
 int set_priority(int new_priority, int pid)
@@ -98,9 +101,11 @@ int set_priority(int new_priority, int pid)
   //output old priority
   return old_priority;
 }
+```
 
 CHANGES MADE IN PROC.C
 
+```c
 //my insert begin
 int addtoq(struct proc *p, int cur_q);
 int removefromq(struct proc *p, int cur_q);
@@ -482,6 +487,7 @@ void scheduler(void)
   }
 }
 // my insert ends
+```
 
 ### FCFS
 Search for the process that is runnable and has minimum ctime and make it run.
