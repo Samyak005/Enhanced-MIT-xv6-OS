@@ -1,6 +1,8 @@
 ### How to Run:
+```bash
 make clean
 make SCHEDULER=DEFAULT/FCFS/PBS/MLFQ && make qemu
+```
 
 To measure time for different scheduling algos Run:
 time benchmark 
@@ -116,8 +118,10 @@ struct proc *queues[5][NPROC];
 int count_in_queues[5];
 int max_ticks_in_queue[5] = {1, 2, 4, 8, 16};
 //my insert end
+```
 
 ALLOCPROC:
+```c
   // my insert begin 
   //Add times to process
   p->ctime = ticks;
@@ -143,15 +147,19 @@ ALLOCPROC:
 
 #endif
   // my insert ends
+```
   
 USERINIT:
+```c
   // my insert begins
   #ifdef MLFQ
       addtoq(p, 0);
   #endif
   // my insert ends
+```
 
 FORK:
+```c
   // my insert begins
   #ifdef MLFQ
       addtoq(np, 0);
@@ -159,21 +167,26 @@ FORK:
  //     psinfo();
   #endif
   // my insert ends
+```
  
 EXIT:
-	// my insert begins
+```c
+  // my insert begins
   //update the end time of process
   curproc->etime = ticks;
   // my insert ends   
+```
   
 WAIT:
+```c
         //my insert begins
         #ifdef MLFQ
           removefromq(p, p->cur_q);
         #endif 
         // my insert ends
+```
         
-ADD TO Q: 
+```c
 // this function adds a process to the queue
 int addtoq(struct proc *p, int cur_q)
 { 
@@ -241,8 +254,9 @@ void printQueueStatus()
         }
     }
 }
+```
 
-
+```c
 // renamed the old scheduler 
 // my insert begins
 void scheduler(void)
@@ -510,6 +524,7 @@ If process has taken longer time than it should in the queue, it is demoted to a
 When scheduling, check first queue and check if any process is ready to execute.
 After that we go to the lower queues and check.
 
+### General
 If a process voluntarily relinquishes control of the CPU, it leaves the queuing
 network, and when the process becomes ready again after the I/O, it is​ ​inserted
 at the tail of the same queue, from which it was relinquished earlier​.
